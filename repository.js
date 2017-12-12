@@ -17,7 +17,7 @@ var repository = {
         //ok - метод обратного вызова для успеха
         //fail - метод обратного вызова для ошибки
 
-        db.all('select * from user_info', [], function (err, result) {
+        this.db.all('select * from user_info', [], function (err, result) {
             if (err == null) {
                 ok(result);
             }
@@ -29,7 +29,7 @@ var repository = {
     },
 
     deleteUser: function (name, ok, fail) {
-        db.run('delete from user_info where name=?', name, function (err, result) {
+        this.db.run('delete from user_info where info = ?', [name], function (err, result) {
             if (err == null) {
                 console.log('Удалили значение');
                 ok()
@@ -40,7 +40,7 @@ var repository = {
         });
     },
     updateUser: function (name, ok, fail) {
-        db.run('update user_info set firstname = ? where lastName = ?', name, function (err, result) {
+        this.db.run('update user_info set info = ? ', [name], function (err, result) {
             if (err == null) {
                 console.log('Обновили значение(Update)');
                 ok();
@@ -53,18 +53,18 @@ var repository = {
         });
     },
     addUser: function (name, ok, fail) {
-        db.run('INSERT INTO user_info VALUES (?)', name, function (err, result) {
-            if (err == null) {
-                console.log('Запись выполнена. Пользователь добавлен');
-                ok();
-            }
-            else {
-                console.log('Ошибка sql-запроса!');
-                console.log(err);
-                fail();
-            }
+        this.db.run( 'INSERT INTO user_info (info) VALUES (?) )', [name], function(err, result){
+                if (err == null) {
+                    console.log('Запись выполнена. Пользователь добавлен');
+                    ok();
+                } else {
+                    console.log('Ошибка sql-запроса!');
+                    console.log(err);
+                    fail();
+                }
         });
     }
+    
 };
 
 module.exports = repository;
