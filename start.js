@@ -11,7 +11,10 @@ repo2.init();
 // repo.updateUser ('12313', () => console.log("Успешно удалено"), x => console.log('ошибочка вышла'));
 
 
-// repo2.updateUser('GYU').then(x => 'Обновлено', x => "ошибочка");
+repo2.updateUser('GYU').then(x => 'Обновлено', x => "ошибочка");
 
 repo2.deleteUser('GYU').then((x) => console.log("Успешно удалено"), x => console.log('ошибочка вышла'));
+
+
 repo2.getUsers().then(() => console.log("Вот ваши данные"), x => console.log('ошибочка вышла'));
+repo2.addUser("Dima").then(() => console.log("Данные добавлены"), x => console.log('ошибочка вышла'));

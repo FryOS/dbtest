@@ -18,9 +18,11 @@ var repository2 = {
         
                     me.db.run('update user_info set info = ? ', [name], function (err, result) {
                         if (err == null) {
+                            console.log(result);
                             resolve();
                         }
                         else {
+                            console.log('Ошибка sql-запроса! : '+ err);
                             reject();
                         }
                     });
@@ -32,11 +34,12 @@ var repository2 = {
         return new Promise(function (resolve, reject) {
             me.db.all('select * from user_info', [], function (err, result) {
                 if (err == null) {
-                    resolve(console.log(result));
+                    console.log(result);
+                    resolve();
                 }
                 else {
-                    
-                    reject(console.log('Ошибка sql-запроса! : '+ err));
+                    console.log('Ошибка sql-запроса! : '+ err);
+                    reject();
                 }
             });
         });
@@ -47,7 +50,6 @@ var repository2 = {
         return new Promise(function(resolve, reject){
            me.db.run('delete from user_info where info = ?', [name], function(err, result){
                 if (err == null) {
-                    // console.log('Удалили значение');
                     console.log(result);
                     resolve();
                 }
@@ -59,8 +61,21 @@ var repository2 = {
         });
     },
 
-    addUser: function(){
-        
+    addUser: function(name){
+        var me = this;
+        return new Promise (function(resolve, reject){
+            me.db.run('INSERT INTO user_info (info) VALUES (?)', [name], function(err, result){
+                if (err == null) {
+                    console.log(name);
+                    resolve();
+                }
+                else {
+                    console.log('Ошибка sql-запроса! : '+ err);
+                    reject();
+                }
+            });
+        });
+
     },
 
 
