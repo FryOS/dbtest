@@ -53,7 +53,7 @@ var repository = {
         });
     },
     addUser: function (name, ok, fail) {
-        this.db.run( 'INSERT INTO user_info (info) VALUES (?) )', [name], function(err, result){
+        this.db.run( 'INSERT INTO user_info (info) VALUES (?)', [name], function(err, result){
                 if (err == null) {
                     console.log('Запись выполнена. Пользователь добавлен');
                     ok();
@@ -63,7 +63,7 @@ var repository = {
                     fail();
                 }
         });
-    }
+    },
     
 };
 

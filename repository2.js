@@ -44,21 +44,23 @@ var repository2 = {
     
     deleteUser: function (name){
         var me = this;
-        return new Promise(function(){
+        return new Promise(function(resolve, reject){
            me.db.run('delete from user_info where info = ?', [name], function(err, result){
                 if (err == null) {
                     // console.log('Удалили значение');
-                    resolve(console.log(result));;
+                    console.log(result);
+                    resolve();
                 }
                 else {
-                    reject(console.log('Ошибка sql-запроса! : '+ err));
+                    console.log('Ошибка sql-запроса! : '+ err);
+                    reject();
                 }
            });
         });
     },
 
     addUser: function(){
-
+        
     },
 
 
